@@ -12,18 +12,26 @@ import java.util.List;
 import java.util.Objects;
 
 public class ChannelServiceInMemory implements ChannelService {
-    private final ChannelRepository channelRepository;//todo singletone
+    private final ChannelRepository channelRepository;
     private final TVShowRepository showRepository;
     private int lastId;
+    private static ChannelServiceInMemory INSTANCE;
 
-    public ChannelServiceInMemory() {
+    public static ChannelServiceInMemory getINSTANCE() {
+        if (INSTANCE == null) {
+            INSTANCE = new ChannelServiceInMemory();
+        }
+        return INSTANCE;
+    }
+
+    private ChannelServiceInMemory() {
         this.channelRepository = ChannelRepositoryInMemory.getINSTANCE();
         this.showRepository = TVShowRepositoryInMemory.getINSTANCE();
         this.lastId = 0;
     }
 
     @Override
-    public void addChannel(Channel channel) {
+    public void add(Channel channel) {
         List<Channel> channels = channelRepository.getAll();
         if (channels.size() != 0 && channel.getId() != null) {
             for (Channel ch : channels) {
@@ -32,7 +40,7 @@ public class ChannelServiceInMemory implements ChannelService {
                 }
             }
         }
-        if (channel.getId() == null){
+        if (channel.getId() == null) {
             channel.setId(lastId++);
             channelRepository.add(channel);
             return;
@@ -64,9 +72,12 @@ public class ChannelServiceInMemory implements ChannelService {
     }
 
     @Override
-    public void removeChannelById(int id) {//Cascade delete
-        for (TVShow show: showRepository.getAll()) {
-            if (show.getChannelID() == id){
+    public void removeByID(int id) {//Cascade delete
+        if (channelRepository.getByID(id) == null){
+            System.out.println("Channel with id = " + id + " not exists");
+        }
+        for (TVShow show : showRepository.getAll()) {
+            if (show.getChannelID() == id) {
                 showRepository.removeByID(show.getId());
             }
         }

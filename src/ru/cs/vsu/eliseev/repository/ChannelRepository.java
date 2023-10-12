@@ -4,7 +4,7 @@ import ru.cs.vsu.eliseev.models.Channel;
 
 import java.util.List;
 
-public interface ChannelRepository {
+public interface ChannelRepository extends Repository<Channel> {
     List<Channel> getAll();
     void add(Channel channel);
     Channel getByID(int id);

@@ -36,7 +36,7 @@ public class TVShowRepositoryInMemory implements TVShowRepository {
     }
 
     @Override
-    public TVShow getById(int id) {
+    public TVShow getByID(int id) {
         for (TVShow show : tvShows) {
             if (id == show.getId())
                 return show;
