@@ -1,12 +1,11 @@
 package ru.cs.vsu.eliseev.commands;
 
-import ru.cs.vsu.eliseev.service.ChannelService;
-import ru.cs.vsu.eliseev.service.implementation.ChannelServiceInMemory;
+import ru.cs.vsu.eliseev.service.implementation.ChannelService;
 
 import java.util.Scanner;
 
 public class ChangeReviewOfChannel implements Command{
-    private ChannelService channelService;
+    private final ru.cs.vsu.eliseev.service.ChannelService channelService;
     private static ChangeReviewOfChannel INSTANCE;
 
     public static ChangeReviewOfChannel getINSTANCE (){
@@ -17,7 +16,7 @@ public class ChangeReviewOfChannel implements Command{
     }
 
     private ChangeReviewOfChannel(){
-        this.channelService = ChannelServiceInMemory.getINSTANCE();
+        this.channelService = ChannelService.getINSTANCE();
     }
 
 
@@ -27,7 +26,7 @@ public class ChangeReviewOfChannel implements Command{
         int id = Integer.parseInt(sc.next());
         System.out.println("Введите новое описание:");
         String newReview = sc.next();
-        channelService.changeName(id, newReview);
+        channelService.changeReview(id, newReview);
     }
 
     @Override

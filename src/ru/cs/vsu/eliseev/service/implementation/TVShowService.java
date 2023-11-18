@@ -6,27 +6,25 @@ import ru.cs.vsu.eliseev.repository.ChannelRepository;
 import ru.cs.vsu.eliseev.repository.TVShowRepository;
 import ru.cs.vsu.eliseev.repository.implementation.ChannelRepositoryInMemory;
 import ru.cs.vsu.eliseev.repository.implementation.TVShowRepositoryInMemory;
-import ru.cs.vsu.eliseev.service.TVShowService;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class TVShowServiceInMemory implements TVShowService {
+public class TVShowService implements ru.cs.vsu.eliseev.service.TVShowService {
     private final TVShowRepository tvShowRepository;
     private final ChannelRepository channelRepository;
     private int lastId;
-    private static TVShowServiceInMemory INSTANCE;
+    private static TVShowService INSTANCE;
 
-    public static TVShowServiceInMemory getInstance() {
+    public static TVShowService getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new TVShowServiceInMemory();
+            INSTANCE = new TVShowService();
         }
         return INSTANCE;
     }
 
 
-    private TVShowServiceInMemory() {
+    private TVShowService() {
         this.channelRepository = ChannelRepositoryInMemory.getINSTANCE();
         this.tvShowRepository = TVShowRepositoryInMemory.getINSTANCE();
         this.lastId = 0;
@@ -35,7 +33,7 @@ public class TVShowServiceInMemory implements TVShowService {
     @Override
     public void add(TVShow tvShow) {
         if (!isChannelExists(tvShow.getChannelID())) {
-            throw new IllegalArgumentException("Channel with id = " + tvShow.getChannelID() + "not exists");
+            throw new IllegalArgumentException("Channel with id = " + tvShow.getChannelID() + " not exists");
         }
         if (!checkTime(tvShow.getDayOfWeek(), tvShow.getTime(), tvShow.getChannelID())) {
             int[][] timeShowToAdd = tvShow.getTime();

@@ -1,13 +1,12 @@
 package ru.cs.vsu.eliseev.commands;
 
-import ru.cs.vsu.eliseev.service.ChannelService;
-import ru.cs.vsu.eliseev.service.implementation.ChannelServiceInMemory;
+import ru.cs.vsu.eliseev.service.implementation.ChannelService;
 
 import java.util.Scanner;
 
 public class ChangeNameOfChannel implements Command {
 
-    private ChannelService channelService;
+    private ru.cs.vsu.eliseev.service.ChannelService channelService;
     private static ChangeNameOfChannel INSTANCE;
 
     public static ChangeNameOfChannel getINSTANCE (){
@@ -18,7 +17,7 @@ public class ChangeNameOfChannel implements Command {
     }
 
     private ChangeNameOfChannel() {
-        this.channelService = ChannelServiceInMemory.getINSTANCE();
+        this.channelService = ChannelService.getINSTANCE();
     }
 
     @Override

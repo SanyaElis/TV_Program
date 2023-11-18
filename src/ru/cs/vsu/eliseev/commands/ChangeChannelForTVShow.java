@@ -1,14 +1,11 @@
 package ru.cs.vsu.eliseev.commands;
 
-import ru.cs.vsu.eliseev.service.ChannelService;
-import ru.cs.vsu.eliseev.service.TVShowService;
-import ru.cs.vsu.eliseev.service.implementation.ChannelServiceInMemory;
-import ru.cs.vsu.eliseev.service.implementation.TVShowServiceInMemory;
+import ru.cs.vsu.eliseev.service.implementation.TVShowService;
 
 import java.util.Scanner;
 
 public class ChangeChannelForTVShow implements Command{
-    private final TVShowService tvShowService;
+    private final ru.cs.vsu.eliseev.service.TVShowService tvShowService;
     private static ChangeChannelForTVShow INSTANCE;
 
     public static ChangeChannelForTVShow getINSTANCE(){
@@ -19,7 +16,7 @@ public class ChangeChannelForTVShow implements Command{
     }
 
     private ChangeChannelForTVShow(){
-        this.tvShowService = TVShowServiceInMemory.getInstance();
+        this.tvShowService = TVShowService.getInstance();
     }
 
     @Override

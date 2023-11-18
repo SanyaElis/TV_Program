@@ -1,13 +1,12 @@
 package ru.cs.vsu.eliseev.commands;
 
-import ru.cs.vsu.eliseev.service.TVShowService;
-import ru.cs.vsu.eliseev.service.implementation.TVShowServiceInMemory;
+import ru.cs.vsu.eliseev.service.implementation.TVShowService;
 
 import java.util.Scanner;
 
 public class ChangeTVShowDescription implements Command{
 
-    private final TVShowService tvShowService;
+    private final ru.cs.vsu.eliseev.service.TVShowService tvShowService;
     private static ChangeTVShowDescription INSTANCE;
 
     public static ChangeTVShowDescription getINSTANCE(){
@@ -18,7 +17,7 @@ public class ChangeTVShowDescription implements Command{
     }
 
     private ChangeTVShowDescription(){
-        this.tvShowService = TVShowServiceInMemory.getInstance();
+        this.tvShowService = TVShowService.getInstance();
     }
 
     @Override

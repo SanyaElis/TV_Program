@@ -1,15 +1,12 @@
 package ru.cs.vsu.eliseev.commands;
 
-import ru.cs.vsu.eliseev.models.TVShow;
-import ru.cs.vsu.eliseev.service.TVShowService;
-import ru.cs.vsu.eliseev.service.implementation.TVShowServiceInMemory;
+import ru.cs.vsu.eliseev.service.implementation.TVShowService;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class RemoveTVProgram implements Command{
 
-    private final TVShowService tvShowService;
+    private final ru.cs.vsu.eliseev.service.TVShowService tvShowService;
 
     private static RemoveTVProgram INSTANCE;
 
@@ -21,7 +18,7 @@ public class RemoveTVProgram implements Command{
     }
 
     private RemoveTVProgram(){
-        this.tvShowService = TVShowServiceInMemory.getInstance();
+        this.tvShowService = TVShowService.getInstance();
     }
 
     @Override

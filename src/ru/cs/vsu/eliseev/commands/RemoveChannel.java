@@ -1,13 +1,12 @@
 package ru.cs.vsu.eliseev.commands;
 
-import ru.cs.vsu.eliseev.service.ChannelService;
-import ru.cs.vsu.eliseev.service.implementation.ChannelServiceInMemory;
+import ru.cs.vsu.eliseev.service.implementation.ChannelService;
 
 import java.util.Scanner;
 
 public class RemoveChannel implements Command{
 
-    private final ChannelService channelService;
+    private final ru.cs.vsu.eliseev.service.ChannelService channelService;
     private static RemoveChannel INSTANCE;
 
     public static RemoveChannel getINSTANCE() {
@@ -18,7 +17,7 @@ public class RemoveChannel implements Command{
     }
 
     private RemoveChannel() {
-        this.channelService = ChannelServiceInMemory.getINSTANCE();
+        this.channelService = ChannelService.getINSTANCE();
     }
 
     @Override
