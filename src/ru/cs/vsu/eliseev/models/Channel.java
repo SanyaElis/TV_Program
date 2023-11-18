@@ -1,6 +1,8 @@
 package ru.cs.vsu.eliseev.models;
 
 
+import java.util.Objects;
+
 public class Channel {
     private Integer id;
     private final String name;
@@ -51,20 +53,17 @@ public class Channel {
                 '}';
     }
 
-    /*todo use this
-    public boolean addTVShow(TVShow newTVShow) {
-        return true;
-    }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
 
-    public void renameChannel(String newName) {
-        this.name = newName;
+        Channel channel = (Channel) obj;
+        return Objects.equals(channel.getId(), id) && Objects.equals(channel.getName(), name)
+                && channel.getNumberOfChannel() == numberOfChannel && Objects.equals(channel.getReview(), review);
     }
-
-    public void changeNumber(int newNumber){
-        this.numberOfChannel = newNumber;
-    }
-
-    public void changeReview(String newReview){
-        this.review = review;
-    }*/
 }

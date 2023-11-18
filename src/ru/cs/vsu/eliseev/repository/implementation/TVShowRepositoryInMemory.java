@@ -55,6 +55,7 @@ public class TVShowRepositoryInMemory implements TVShowRepository {
             if (id == show.getId()) {
                 tvShows.remove(show);
                 tvShows.add(newTVShow);
+                return;
             }
         }
         throw new IllegalArgumentException("TV Show with id = " + id + " not exists");

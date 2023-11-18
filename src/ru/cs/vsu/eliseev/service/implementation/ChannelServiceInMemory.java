@@ -6,24 +6,25 @@ import ru.cs.vsu.eliseev.repository.ChannelRepository;
 import ru.cs.vsu.eliseev.repository.TVShowRepository;
 import ru.cs.vsu.eliseev.repository.implementation.ChannelRepositoryInMemory;
 import ru.cs.vsu.eliseev.repository.implementation.TVShowRepositoryInMemory;
+import ru.cs.vsu.eliseev.service.ChannelService;
 
 import java.util.List;
 import java.util.Objects;
 
-public class ChannelService implements ru.cs.vsu.eliseev.service.ChannelService {
+public class ChannelServiceInMemory implements ChannelService {
     private final ChannelRepository channelRepository;
     private final TVShowRepository showRepository;
     private int lastId;
-    private static ChannelService INSTANCE;
+    private static ChannelServiceInMemory INSTANCE;
 
-    public static ChannelService getINSTANCE() {
+    public static ChannelServiceInMemory getINSTANCE() {
         if (INSTANCE == null) {
-            INSTANCE = new ChannelService();
+            INSTANCE = new ChannelServiceInMemory();
         }
         return INSTANCE;
     }
 
-    private ChannelService() {
+    private ChannelServiceInMemory() {
         this.channelRepository = ChannelRepositoryInMemory.getINSTANCE();
         this.showRepository = TVShowRepositoryInMemory.getINSTANCE();
         this.lastId = 0;

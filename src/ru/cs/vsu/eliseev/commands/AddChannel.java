@@ -1,7 +1,7 @@
 package ru.cs.vsu.eliseev.commands;
 
 import ru.cs.vsu.eliseev.models.Channel;
-import ru.cs.vsu.eliseev.service.implementation.ChannelService;
+import ru.cs.vsu.eliseev.service.implementation.ChannelServiceInMemory;
 
 import java.util.Scanner;
 
@@ -18,7 +18,7 @@ public class AddChannel implements Command{
     }
 
     private AddChannel() {
-        this.channelService = ChannelService.getINSTANCE();
+        this.channelService = ChannelServiceInMemory.getINSTANCE();
     }
 
     @Override

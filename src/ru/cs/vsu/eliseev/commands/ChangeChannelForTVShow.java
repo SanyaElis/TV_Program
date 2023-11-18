@@ -1,6 +1,6 @@
 package ru.cs.vsu.eliseev.commands;
 
-import ru.cs.vsu.eliseev.service.implementation.TVShowService;
+import ru.cs.vsu.eliseev.service.implementation.TVShowServiceInMemory;
 
 import java.util.Scanner;
 
@@ -16,7 +16,7 @@ public class ChangeChannelForTVShow implements Command{
     }
 
     private ChangeChannelForTVShow(){
-        this.tvShowService = TVShowService.getInstance();
+        this.tvShowService = TVShowServiceInMemory.getInstance();
     }
 
     @Override

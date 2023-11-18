@@ -6,25 +6,26 @@ import ru.cs.vsu.eliseev.repository.ChannelRepository;
 import ru.cs.vsu.eliseev.repository.TVShowRepository;
 import ru.cs.vsu.eliseev.repository.implementation.ChannelRepositoryInMemory;
 import ru.cs.vsu.eliseev.repository.implementation.TVShowRepositoryInMemory;
+import ru.cs.vsu.eliseev.service.TVShowService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TVShowService implements ru.cs.vsu.eliseev.service.TVShowService {
+public class TVShowServiceInMemory implements TVShowService {
     private final TVShowRepository tvShowRepository;
     private final ChannelRepository channelRepository;
     private int lastId;
-    private static TVShowService INSTANCE;
+    private static TVShowServiceInMemory INSTANCE;
 
-    public static TVShowService getInstance() {
+    public static TVShowServiceInMemory getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new TVShowService();
+            INSTANCE = new TVShowServiceInMemory();
         }
         return INSTANCE;
     }
 
 
-    private TVShowService() {
+    private TVShowServiceInMemory() {
         this.channelRepository = ChannelRepositoryInMemory.getINSTANCE();
         this.tvShowRepository = TVShowRepositoryInMemory.getINSTANCE();
         this.lastId = 0;
@@ -62,7 +63,7 @@ public class TVShowService implements ru.cs.vsu.eliseev.service.TVShowService {
         TVShow show = tvShowRepository.getByID(id);
         if (show == null)
             return;
-        tvShowRepository.update(id, new TVShow(genre, show.getDayOfWeek(), show.getTimeOfStart(), show.getTimeOfEnd(), show.getDescription(), show.getChannelID()));
+        tvShowRepository.update(id, new TVShow(id, genre, show.getDayOfWeek(), show.getTimeOfStart(), show.getTimeOfEnd(), show.getDescription(), show.getChannelID()));
     }
 
     @Override
@@ -87,7 +88,7 @@ public class TVShowService implements ru.cs.vsu.eliseev.service.TVShowService {
                     timeShowToAdd[0][1] + " - " + timeShowToAdd[1][0] + ":" +
                     timeShowToAdd[1][1] + " channel shows another show");
         }
-        tvShowRepository.update(show.getId(), new TVShow(show.getGenre(), show.getDayOfWeek(), show.getTimeOfStart(), show.getTimeOfEnd(), show.getDescription(), newChannelId));
+        tvShowRepository.update(show.getId(), new TVShow(show.getId(), show.getGenre(), show.getDayOfWeek(), show.getTimeOfStart(), show.getTimeOfEnd(), show.getDescription(), newChannelId));
     }
 
     @Override

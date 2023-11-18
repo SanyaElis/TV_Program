@@ -2,7 +2,7 @@ package ru.cs.vsu.eliseev.commands;
 
 import ru.cs.vsu.eliseev.enums.DayOfWeek;
 import ru.cs.vsu.eliseev.models.TVShow;
-import ru.cs.vsu.eliseev.service.implementation.TVShowService;
+import ru.cs.vsu.eliseev.service.implementation.TVShowServiceInMemory;
 
 import java.util.Scanner;
 
@@ -20,7 +20,7 @@ public class AddTVShow implements Command{
     }
 
     private AddTVShow(){
-        this.tvShowService = TVShowService.getInstance();
+        this.tvShowService = TVShowServiceInMemory.getInstance();
     }
 
     @Override
