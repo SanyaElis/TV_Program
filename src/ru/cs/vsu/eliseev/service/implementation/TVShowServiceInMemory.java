@@ -1,6 +1,5 @@
 package ru.cs.vsu.eliseev.service.implementation;
 
-import ru.cs.vsu.eliseev.enums.DayOfWeek;
 import ru.cs.vsu.eliseev.models.TVShow;
 import ru.cs.vsu.eliseev.repository.ChannelRepository;
 import ru.cs.vsu.eliseev.repository.TVShowRepository;
@@ -8,14 +7,21 @@ import ru.cs.vsu.eliseev.repository.implementation.ChannelRepositoryInMemory;
 import ru.cs.vsu.eliseev.repository.implementation.TVShowRepositoryInMemory;
 import ru.cs.vsu.eliseev.service.TVShowService;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TVShowServiceInMemory implements TVShowService {
+    private static TVShowServiceInMemory INSTANCE;
     private final TVShowRepository tvShowRepository;
     private final ChannelRepository channelRepository;
     private int lastId;
-    private static TVShowServiceInMemory INSTANCE;
+
+    private TVShowServiceInMemory() {
+        this.channelRepository = ChannelRepositoryInMemory.getINSTANCE();
+        this.tvShowRepository = TVShowRepositoryInMemory.getINSTANCE();
+        this.lastId = 0;
+    }
 
     public static TVShowServiceInMemory getInstance() {
         if (INSTANCE == null) {
@@ -24,23 +30,14 @@ public class TVShowServiceInMemory implements TVShowService {
         return INSTANCE;
     }
 
-
-    private TVShowServiceInMemory() {
-        this.channelRepository = ChannelRepositoryInMemory.getINSTANCE();
-        this.tvShowRepository = TVShowRepositoryInMemory.getINSTANCE();
-        this.lastId = 0;
-    }
-
     @Override
     public void add(TVShow tvShow) {
         if (!isChannelExists(tvShow.getChannelID())) {
             throw new IllegalArgumentException("Channel with id = " + tvShow.getChannelID() + " not exists");
         }
-        if (!checkTime(tvShow.getDayOfWeek(), tvShow.getTime(), tvShow.getChannelID())) {
-            int[][] timeShowToAdd = tvShow.getTime();
-            throw new IllegalArgumentException("In time " + timeShowToAdd[0][0] + ":" +
-                    timeShowToAdd[0][1] + " - " + timeShowToAdd[1][0] + ":" +
-                    timeShowToAdd[1][1] + " channel shows another show");
+        if (!checkTime(tvShow)) {
+            throw new IllegalArgumentException("In time " + tvShow.getTimeOfStart() + " - " + tvShow.getTimeOfEnd() +
+                    " channel shows another show");
         }
         if (tvShow.getId() == null) {//todo проверка добавления с индексом lastId
             tvShow.setId(lastId++);
@@ -63,7 +60,7 @@ public class TVShowServiceInMemory implements TVShowService {
         TVShow show = tvShowRepository.getByID(id);
         if (show == null)
             return;
-        tvShowRepository.update(id, new TVShow(id, genre, show.getDayOfWeek(), show.getTimeOfStart(), show.getTimeOfEnd(), show.getDescription(), show.getChannelID()));
+        tvShowRepository.update(id, new TVShow(id, genre, show.getDayOfWeek(), show.getTimeOfStart().toString(), show.getTimeOfEnd().toString(), show.getDescription(), show.getChannelID()));
     }
 
     @Override
@@ -71,7 +68,7 @@ public class TVShowServiceInMemory implements TVShowService {
         TVShow show = tvShowRepository.getByID(id);
         if (show == null)
             return;
-        tvShowRepository.update(id, new TVShow(show.getGenre(), show.getDayOfWeek(), show.getTimeOfStart(), show.getTimeOfEnd(), description, show.getChannelID()));
+        tvShowRepository.update(id, new TVShow(show.getGenre(), show.getDayOfWeek(), show.getTimeOfStart().toString(), show.getTimeOfEnd().toString(), description, show.getChannelID()));
     }
 
     @Override
@@ -82,18 +79,16 @@ public class TVShowServiceInMemory implements TVShowService {
         if (!isChannelExists(newChannelId)) {
             throw new IllegalArgumentException("Channel with id = " + newChannelId + "not exists");
         }
-        if (!checkTime(show.getDayOfWeek(), show.getTime(), newChannelId)) {
-            int[][] timeShowToAdd = show.getTime();
-            throw new IllegalArgumentException("In time " + timeShowToAdd[0][0] + ":" +
-                    timeShowToAdd[0][1] + " - " + timeShowToAdd[1][0] + ":" +
-                    timeShowToAdd[1][1] + " channel shows another show");
+        if (!checkTime(show)) {
+            throw new IllegalArgumentException("In time " + show.getTimeOfStart() + " - " + show.getTimeOfEnd() +
+                    " channel shows another show");
         }
-        tvShowRepository.update(show.getId(), new TVShow(show.getId(), show.getGenre(), show.getDayOfWeek(), show.getTimeOfStart(), show.getTimeOfEnd(), show.getDescription(), newChannelId));
+        tvShowRepository.update(show.getId(), new TVShow(show.getId(), show.getGenre(), show.getDayOfWeek(), show.getTimeOfStart().toString(), show.getTimeOfEnd().toString(), show.getDescription(), newChannelId));
     }
 
     @Override
     public void removeByID(int ID) {
-        if (tvShowRepository.getByID(ID) == null){
+        if (tvShowRepository.getByID(ID) == null) {
             System.out.println("TV Show with id = " + ID + " not exists");
         }
         tvShowRepository.removeByID(ID);
@@ -103,10 +98,10 @@ public class TVShowServiceInMemory implements TVShowService {
         return channelRepository.getByID(channelId) != null;
     }
 
-    private boolean checkTime(DayOfWeek dayOfWeek, int[][] timeShowToAdd, int channelId) {
+    private boolean checkTime(TVShow showToAdd) {
         List<TVShow> showsOnChannel = new ArrayList<>();
         for (TVShow shows : tvShowRepository.getAll()) {
-            if (shows.getChannelID() == channelId && shows.getDayOfWeek() == dayOfWeek) {
+            if (shows.getChannelID() == showToAdd.getChannelID() && shows.getDayOfWeek() == showToAdd.getDayOfWeek()) {
                 showsOnChannel.add(shows);
             }
         }
@@ -114,11 +109,14 @@ public class TVShowServiceInMemory implements TVShowService {
             return true;
         }
         for (TVShow shows : showsOnChannel) {
-            int[][] time = shows.getTime();
-            if (time[0][0] < timeShowToAdd[0][0] && timeShowToAdd[1][0] < time[1][0]) {
+            Time timeOfStart = shows.getTimeOfStart();
+            Time timeOfEnd = shows.getTimeOfEnd();
+            if (showToAdd.getTimeOfStart().after(timeOfStart) && showToAdd.getTimeOfStart().before(timeOfEnd)) {
                 return false;
             }
-            //if (time[0][0] == timeShowToAdd[0][0] && ) todo доделать
+            if (showToAdd.getTimeOfEnd().after(timeOfStart) && showToAdd.getTimeOfEnd().before(timeOfEnd)) {
+                return false;
+            }
         }
         return true;
     }
