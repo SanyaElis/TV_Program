@@ -96,6 +96,7 @@ public class TVShowServiceInMemory implements TVShowService {
         if (tvShowRepository.getByID(ID) == null){
             System.out.println("TV Show with id = " + ID + " not exists");
         }
+        tvShowRepository.removeByID(ID);
     }
 
     private boolean isChannelExists(int channelId) {

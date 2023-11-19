@@ -64,7 +64,7 @@ public class TVShow {
         return dayOfWeek;
     }
 
-    public int[][] getTime() {
+    public int[][] getTime() {//todo replace with java.sql.Time
         String[] start = timeOfStart.split(":");
         String[] end = timeOfEnd.split(":");
         int[][] time = new int[2][2];
