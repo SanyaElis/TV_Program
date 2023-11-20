@@ -1,18 +1,23 @@
 package ru.cs.vsu.eliseev.tests;
-import java.time.DayOfWeek;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.sql.Time;
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 
 public class Tester {
     public static void main(String[] args) {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-//        String timeString = "18:45";
-//        LocalTime parsedTime = LocalTime.parse(timeString, formatter);
-//        System.out.println("Время после разбора: " + parsedTime);
-        Time testTime = Time.valueOf("18:45:00");
-        System.out.println("Sql Time: " + testTime);
-        DayOfWeek newDay = DayOfWeek.MONDAY;
-        System.out.println(newDay);
+        String url = "jdbc:mysql://localhost:3306/database";
+        String username = "root";
+        String password = "Qwerty098";
+
+        System.out.println("Connecting database ...");
+
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+            System.out.println("Database connected!");
+        } catch (SQLException e) {
+            throw new IllegalStateException("Cannot connect the database!", e);
+        }
     }
 }
