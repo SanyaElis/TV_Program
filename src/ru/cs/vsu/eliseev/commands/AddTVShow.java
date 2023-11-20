@@ -1,14 +1,15 @@
 package ru.cs.vsu.eliseev.commands;
 
-import ru.cs.vsu.eliseev.enums.DayOfWeek;
 import ru.cs.vsu.eliseev.models.TVShow;
+import ru.cs.vsu.eliseev.service.TVShowService;
 import ru.cs.vsu.eliseev.service.implementation.TVShowServiceInMemory;
 
+import java.time.DayOfWeek;
 import java.util.Scanner;
 
 public class AddTVShow implements Command{
 
-    private final ru.cs.vsu.eliseev.service.TVShowService tvShowService;
+    private final TVShowService tvShowService;
 
     private static AddTVShow INSTANCE;
 
@@ -29,9 +30,9 @@ public class AddTVShow implements Command{
         String genre = sc.next();
         DayOfWeek dayOfWeek = DayOfWeek.MONDAY;
         System.out.println("Введите время начала телепередачи которую вы хотите добавить: hh:mm");
-        String start = sc.next();
+        String start = sc.next() + ":00";
         System.out.println("Введите время конца телепередачи которую вы хотите добавить: hh:mm");
-        String end = sc.next();
+        String end = sc.next() + ":00";
         System.out.println("Введите описание телепередачи которую вы хотите добавить: (String)");
         String description = sc.next();
         System.out.println("Введите канал на котором будет показываться телепередачи которую вы хотите добавить: (int)");

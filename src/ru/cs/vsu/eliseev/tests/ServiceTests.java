@@ -2,7 +2,7 @@ package ru.cs.vsu.eliseev.tests;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ru.cs.vsu.eliseev.enums.DayOfWeek;
+import java.time.DayOfWeek;
 import ru.cs.vsu.eliseev.models.Channel;
 import ru.cs.vsu.eliseev.models.TVShow;
 import ru.cs.vsu.eliseev.service.implementation.ChannelServiceInMemory;

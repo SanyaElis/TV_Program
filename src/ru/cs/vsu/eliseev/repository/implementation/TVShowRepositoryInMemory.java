@@ -1,6 +1,5 @@
 package ru.cs.vsu.eliseev.repository.implementation;
 
-import ru.cs.vsu.eliseev.models.Channel;
 import ru.cs.vsu.eliseev.models.TVShow;
 import ru.cs.vsu.eliseev.repository.TVShowRepository;
 

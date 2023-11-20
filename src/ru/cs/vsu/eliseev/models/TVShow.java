@@ -1,7 +1,8 @@
 package ru.cs.vsu.eliseev.models;
 
-import ru.cs.vsu.eliseev.enums.DayOfWeek;
 import java.sql.Time;
+import java.time.DayOfWeek;
+import java.util.Objects;
 
 
 public class TVShow {
@@ -76,5 +77,21 @@ public class TVShow {
                 ", description='" + description + '\'' +
                 ", channelID=" + channelID +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        TVShow show = (TVShow) obj;
+        return Objects.equals(show.getId(), id) && Objects.equals(show.getGenre(), genre)
+                && show.getDayOfWeek() == dayOfWeek && show.getTimeOfStart() == timeOfStart
+                && show.getTimeOfEnd() == timeOfEnd && Objects.equals(show.getDescription(), description)
+                && show.getChannelID() == channelID;
     }
 }

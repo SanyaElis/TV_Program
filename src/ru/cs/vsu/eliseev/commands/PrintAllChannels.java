@@ -1,6 +1,7 @@
 package ru.cs.vsu.eliseev.commands;
 
 import ru.cs.vsu.eliseev.models.Channel;
+import ru.cs.vsu.eliseev.service.ChannelService;
 import ru.cs.vsu.eliseev.service.implementation.ChannelServiceInMemory;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Scanner;
 
 public class PrintAllChannels implements Command {
 
-    private final ru.cs.vsu.eliseev.service.ChannelService channelService;
+    private final ChannelService channelService;
     private static PrintAllChannels INSTANCE;
 
     public static PrintAllChannels getINSTANCE() {

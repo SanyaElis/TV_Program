@@ -1,11 +1,12 @@
 package ru.cs.vsu.eliseev.commands;
 
+import ru.cs.vsu.eliseev.service.ChannelService;
 import ru.cs.vsu.eliseev.service.implementation.ChannelServiceInMemory;
 
 import java.util.Scanner;
 
 public class ChangeReviewOfChannel implements Command{
-    private final ru.cs.vsu.eliseev.service.ChannelService channelService;
+    private final ChannelService channelService;
     private static ChangeReviewOfChannel INSTANCE;
 
     public static ChangeReviewOfChannel getINSTANCE (){

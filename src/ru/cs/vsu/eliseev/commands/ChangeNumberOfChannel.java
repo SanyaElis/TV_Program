@@ -1,16 +1,17 @@
 package ru.cs.vsu.eliseev.commands;
 
+import ru.cs.vsu.eliseev.service.ChannelService;
 import ru.cs.vsu.eliseev.service.implementation.ChannelServiceInMemory;
 
 import java.util.Scanner;
 
-public class ChangeNumberOfChannel implements Command{
+public class ChangeNumberOfChannel implements Command {
 
-    private ru.cs.vsu.eliseev.service.ChannelService channelService;
+    private final ChannelService channelService;
     private static ChangeNumberOfChannel INSTANCE;
 
-    public static ChangeNumberOfChannel getINSTANCE (){
-        if (INSTANCE == null){
+    public static ChangeNumberOfChannel getINSTANCE() {
+        if (INSTANCE == null) {
             INSTANCE = new ChangeNumberOfChannel();
         }
         return INSTANCE;
