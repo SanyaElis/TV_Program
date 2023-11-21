@@ -58,4 +58,23 @@ public class ConnectionManager {
         }
     }
 
+    public ResultSet executeSelect(String query) {
+        ResultSet resultSet = null;
+        try {
+            resultSet = statement.executeQuery(query);
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    public int executeUpdate(String query) {
+        int rows = 0;
+        try {
+            rows = statement.executeUpdate(query);
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return rows;
+    }
 }
