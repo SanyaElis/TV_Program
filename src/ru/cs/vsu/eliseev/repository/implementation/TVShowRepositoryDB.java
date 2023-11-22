@@ -49,7 +49,7 @@ public class TVShowRepositoryDB implements TVShowRepository {
             }
             connectionManager.executeUpdate("INSERT INTO tvshow (idtvshow, genre, timeOfStart, timeOfEnd, dayOfWeek, description, channelID) " +
                     "VALUES (" + tvShow.getId() + ", '" + tvShow.getGenre() + "', '" + tvShow.getTimeOfStart() + "', '" + tvShow.getTimeOfEnd() + "', '"
-                    + tvShow.getDayOfWeek() + "', '" + tvShow.getDescription() + ",' " + tvShow.getChannelID() + ")");
+                    + tvShow.getDayOfWeek() + "', '" + tvShow.getDescription() + "', " + tvShow.getChannelID() + ")");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -90,8 +90,8 @@ public class TVShow {
 
         TVShow show = (TVShow) obj;
         return Objects.equals(show.getId(), id) && Objects.equals(show.getGenre(), genre)
-                && show.getDayOfWeek() == dayOfWeek && show.getTimeOfStart() == timeOfStart
-                && show.getTimeOfEnd() == timeOfEnd && Objects.equals(show.getDescription(), description)
+                && show.getDayOfWeek() == dayOfWeek && Objects.equals(show.getTimeOfStart(), timeOfStart)
+                && Objects.equals(show.getTimeOfEnd(),timeOfEnd) && Objects.equals(show.getDescription(), description)
                 && show.getChannelID() == channelID;
     }
 }

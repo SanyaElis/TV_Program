@@ -143,10 +143,10 @@ public class ServiceTests {
     public void removeChannelWithShows() {
         Channel newChannel = new Channel(15, "Channel with Shows", 101, "Channel with Shows");
         channelService.add(newChannel);
-        TVShow newShow = new TVShow(14, "Show for remove", DayOfWeek.SUNDAY, "11:30:00", "12:00:00", "Show", 15);
+        TVShow newShow = new TVShow(15, "Show for remove", DayOfWeek.SUNDAY, "11:30:00", "12:00:00", "Show", 15);
         tvShowService.add(newShow);
         channelService.removeByID(15);
-        Assert.assertNull(tvShowService.findByID(14));
+        Assert.assertNull(tvShowService.findByID(15));
     }
     @Test
     public void removeTVShow() {

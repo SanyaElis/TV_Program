@@ -3,7 +3,9 @@ package ru.cs.vsu.eliseev.service.implementation;
 import ru.cs.vsu.eliseev.models.TVShow;
 import ru.cs.vsu.eliseev.repository.ChannelRepository;
 import ru.cs.vsu.eliseev.repository.TVShowRepository;
+import ru.cs.vsu.eliseev.repository.implementation.ChannelRepositoryDB;
 import ru.cs.vsu.eliseev.repository.implementation.ChannelRepositoryInMemory;
+import ru.cs.vsu.eliseev.repository.implementation.TVShowRepositoryDB;
 import ru.cs.vsu.eliseev.repository.implementation.TVShowRepositoryInMemory;
 import ru.cs.vsu.eliseev.service.TVShowService;
 
@@ -18,8 +20,10 @@ public class TVShowServiceInMemory implements TVShowService {
     private int lastId;
 
     private TVShowServiceInMemory() {
-        this.channelRepository = ChannelRepositoryInMemory.getINSTANCE();
-        this.tvShowRepository = TVShowRepositoryInMemory.getINSTANCE();
+//        this.channelRepository = ChannelRepositoryInMemory.getINSTANCE();
+        this.channelRepository = ChannelRepositoryDB.getINSTANCE();
+//        this.tvShowRepository = TVShowRepositoryInMemory.getINSTANCE();
+        this.tvShowRepository = TVShowRepositoryDB.getINSTANCE();
         this.lastId = 0;
     }
 
