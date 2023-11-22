@@ -29,7 +29,7 @@ public class ServiceTests {
     @Test
     public void AddChannel() {
         int prevSize = channelService.getAll().size();
-        Channel newChannel = new Channel("HCT", 3, "Horror");
+        Channel newChannel = new Channel("HCT", 703, "Horror");
         channelService.add(newChannel);
         Assert.assertEquals(prevSize + 1, channelService.getAll().size());
     }
@@ -37,7 +37,7 @@ public class ServiceTests {
     @Test
     public void AddShowToChannel() {
         int prevSize = tvShowService.getAll().size();
-        Channel newChannel = new Channel(3, "HCT", 3, "Horror");
+        Channel newChannel = new Channel(3, "HCT", 603, "Horror");
         channelService.add(newChannel);
         TVShow newShow = new TVShow("Horror", DayOfWeek.FRIDAY, "21:30:00", "23:00:00", "Scary", 3);
         tvShowService.add(newShow);
@@ -47,14 +47,14 @@ public class ServiceTests {
 
     @Test
     public void errorChannelFind() {
-        Channel newChannel = new Channel(45, "HCT", 3, "Horror");
+        Channel newChannel = new Channel(45, "HCT", 503, "Horror");
         channelService.add(newChannel);
         Assert.assertNull(channelService.findByID(4));
     }
 
     @Test
     public void channelFind() {
-        Channel newChannel = new Channel(56, "HCT", 3, "Horror");
+        Channel newChannel = new Channel(56, "HCT", 403, "Horror");
         channelService.add(newChannel);
         Assert.assertEquals(newChannel, channelService.findByID(56));
     }
@@ -70,7 +70,7 @@ public class ServiceTests {
 
     @Test
     public void changeGenre() {
-        Channel newChannel = new Channel(6, "2x2", 3, "Multiplication");
+        Channel newChannel = new Channel(6, "2x2", 303, "Multiplication");
         channelService.add(newChannel);
         TVShow newShow = new TVShow(12, "Simpsons", DayOfWeek.MONDAY, "21:30:00", "23:00:00", "Funny", 6);
         tvShowService.add(newShow);
@@ -81,7 +81,7 @@ public class ServiceTests {
 
     @Test
     public void changeDescription() {
-        Channel newChannel = new Channel(7, "2x2", 31, "Multiplication");
+        Channel newChannel = new Channel(7, "2x2", 30, "Multiplication");
         channelService.add(newChannel);
         TVShow newShow = new TVShow(13, "NewShow", DayOfWeek.WEDNESDAY, "21:30:00", "23:00:00", "Funny", 7);
         tvShowService.add(newShow);

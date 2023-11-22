@@ -28,7 +28,8 @@ public class AddTVShow implements Command{
     public void execute(Scanner sc) {
         System.out.println("Введите жанр телепередачи которую вы хотите добавить: (String)");
         String genre = sc.next();
-        DayOfWeek dayOfWeek = DayOfWeek.MONDAY;
+        System.out.println("Введите день недели в который показывается программа");
+        DayOfWeek dayOfWeek = DayOfWeek.valueOf(sc.next());
         System.out.println("Введите время начала телепередачи которую вы хотите добавить: hh:mm");
         String start = sc.next() + ":00";
         System.out.println("Введите время конца телепередачи которую вы хотите добавить: hh:mm");

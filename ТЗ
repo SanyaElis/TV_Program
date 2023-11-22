@@ -21,3 +21,7 @@ DI dependency injection
 2х фазные конструкторы, прокси
 можно использовать библиотеку для поднятия синглтонов,прокси - reflections
 jstl
+
+
+
+TRUNCATE TABLE table_name

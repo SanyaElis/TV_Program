@@ -76,12 +76,12 @@ public class ChannelServiceInMemory implements ChannelService {
         if (channelRepository.getByID(id) == null){
             System.out.println("Channel with id = " + id + " not exists");
         }
+        channelRepository.removeByID(id);
         for (TVShow show : showRepository.getAll()) {
             if (show.getChannelID() == id) {
                 showRepository.removeByID(show.getId());
             }
         }
-        channelRepository.removeByID(id);
     }
 
     @Override
