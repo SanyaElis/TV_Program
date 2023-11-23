@@ -24,7 +24,7 @@ public class TVShowServiceInMemory implements TVShowService {
         this.channelRepository = ChannelRepositoryDB.getINSTANCE();
 //        this.tvShowRepository = TVShowRepositoryInMemory.getINSTANCE();
         this.tvShowRepository = TVShowRepositoryDB.getINSTANCE();
-        this.lastId = 0;
+        this.lastId = 0;//todo вынести в репозиторий
     }
 
     public static TVShowServiceInMemory getInstance() {
@@ -43,7 +43,7 @@ public class TVShowServiceInMemory implements TVShowService {
             throw new IllegalArgumentException("In time " + tvShow.getTimeOfStart() + " - " + tvShow.getTimeOfEnd() +
                     " channel shows another show");
         }
-        if (tvShow.getId() == null) {//todo проверка добавления с индексом lastId
+        if (tvShow.getId() == null) {
             tvShow.setId(lastId++);
         }
         tvShowRepository.add(tvShow);
