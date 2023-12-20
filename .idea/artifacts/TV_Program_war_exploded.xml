@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="TV_Program:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/TV_Program_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="TV_Program/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="TV_Program" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="junit" />
+          <element id="library" level="project" name="mysql.connector.java" />
+          <element id="file-copy" path="$PROJECT_DIR$/../../../tomcat/apache-tomcat-10.1.17/webapps/examples/WEB-INF/lib/taglibs-standard-impl-1.2.5-migrated-0.0.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../../../tomcat/apache-tomcat-10.1.17/webapps/examples/WEB-INF/lib/taglibs-standard-spec-1.2.5-migrated-0.0.1.jar" />
+        </element>
+        <element id="directory" name="src">
+          <element id="dir-copy" path="$PROJECT_DIR$/src" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
